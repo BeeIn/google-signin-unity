@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 using System.Net;
 using System.Net.NetworkInformation;
@@ -58,6 +59,12 @@ namespace Google.Impl
 
     static HttpListener BindLocalHostFirstAvailablePort()
     {
+      var listener = new HttpListener();
+      listener.Prefixes.Add($"http://localhost:{50001}/");
+      listener.Start();
+      return listener;
+      
+
       ushort minPort = 49215;
 #if UNITY_EDITOR_WIN
       var listeners = IPGlobalProperties.GetIPGlobalProperties().GetActiveTcpListeners();
