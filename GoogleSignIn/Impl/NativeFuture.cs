@@ -28,14 +28,14 @@ namespace Google.Impl {
     internal NativeFuture(IntPtr ptr) : base(ptr) {
     }
 
-    public override void Dispose() => GoogleSignInImpl.GoogleSignIn_DisposeFuture(SelfPtr());
+    public override void Dispose() => GoogleSignInViaCredentialsX.GoogleSignIn_DisposeFuture(SelfPtr());
 
-    public bool Pending => GoogleSignInImpl.GoogleSignIn_Pending(SelfPtr());
+    public bool Pending => GoogleSignInViaCredentialsX.GoogleSignIn_Pending(SelfPtr());
 
     public GoogleSignInUser Result {
       get {
         HandleRef self = SelfPtr();
-        IntPtr ptr = GoogleSignInImpl.GoogleSignIn_Result(self);
+        IntPtr ptr = GoogleSignInViaCredentialsX.GoogleSignIn_Result(self);
         if (ptr == IntPtr.Zero) {
           return null;
         }
@@ -43,21 +43,21 @@ namespace Google.Impl {
         var user = new GoogleSignInUser();
         var userPtr = new HandleRef(user, ptr);
 
-        user.UserId = GoogleSignInImpl.GoogleSignIn_GetUserId(userPtr);
+        user.UserId = GoogleSignInViaCredentialsX.GoogleSignIn_GetUserId(userPtr);
 
-        user.Email = GoogleSignInImpl.GoogleSignIn_GetEmail(userPtr);
+        user.Email = GoogleSignInViaCredentialsX.GoogleSignIn_GetEmail(userPtr);
 
-        user.DisplayName = GoogleSignInImpl.GoogleSignIn_GetDisplayName(userPtr);
+        user.DisplayName = GoogleSignInViaCredentialsX.GoogleSignIn_GetDisplayName(userPtr);
 
-        user.FamilyName = GoogleSignInImpl.GoogleSignIn_GetFamilyName(userPtr);
+        user.FamilyName = GoogleSignInViaCredentialsX.GoogleSignIn_GetFamilyName(userPtr);
 
-        user.GivenName = GoogleSignInImpl.GoogleSignIn_GetGivenName(userPtr);
+        user.GivenName = GoogleSignInViaCredentialsX.GoogleSignIn_GetGivenName(userPtr);
 
-        user.IdToken = GoogleSignInImpl.GoogleSignIn_GetIdToken(userPtr);
+        user.IdToken = GoogleSignInViaCredentialsX.GoogleSignIn_GetIdToken(userPtr);
 
-        user.AuthCode = GoogleSignInImpl.GoogleSignIn_GetServerAuthCode(self);
+        user.AuthCode = GoogleSignInViaCredentialsX.GoogleSignIn_GetServerAuthCode(self);
 
-        string url = GoogleSignInImpl.GoogleSignIn_GetImageUrl(userPtr);
+        string url = GoogleSignInViaCredentialsX.GoogleSignIn_GetImageUrl(userPtr);
         if (url?.Length > 0) {
           user.ImageUrl = new System.Uri(url);
         }
@@ -78,7 +78,7 @@ namespace Google.Impl {
     /// <value>The status.</value>
     public GoogleSignInStatusCode Status {
       get {
-        return (GoogleSignInStatusCode)GoogleSignInImpl.GoogleSignIn_Status(SelfPtr());
+        return (GoogleSignInStatusCode)GoogleSignInViaCredentialsX.GoogleSignIn_Status(SelfPtr());
       }
     }
   }
